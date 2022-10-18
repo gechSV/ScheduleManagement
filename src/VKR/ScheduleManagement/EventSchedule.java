@@ -1,6 +1,5 @@
 package VKR.ScheduleManagement;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -12,36 +11,16 @@ public class EventSchedule {
     private String _nameEvent; // Имя события (низвание пары, урока и т.п.)
     private String _typeEvent; // Тип события (лекция, практика, собрание, концерт и т.д.)
     private String _placeEvent; // Место проведения мероприятия (аудитория, улица, корпус)
+    private String _teacherName; // Имя руководителя мероприятия
     private Date _timeEventBegin; // Время начала события
     private Date _timeEventEnd; // Время окончания события
-    // TODO: преподователь
 
-    private GregorianCalendar _calendar;
-
-    // Конструкторы
     /**
      * Конструктор без параметров
      */
     public EventSchedule(){
         this._timeEventBegin = new Date();
         this._timeEventEnd = new Date();
-    }
-
-    /**
-     * Конструктор с параметрами
-     * @param _nameEvent Имя события
-     * @param _typeEvent Тип события
-     * @param _placeEvent Место проведения мероприятия
-     * @param _timeEventBegin Время начала события
-     * @param _timeEventEnd Время окончания события
-     */
-    public EventSchedule(String _nameEvent, String _typeEvent, String _placeEvent,
-                         Date _timeEventBegin, Date _timeEventEnd){
-        this._nameEvent = _nameEvent;
-        this._typeEvent = _typeEvent;
-        this._placeEvent = _placeEvent;
-        this._timeEventBegin = _timeEventBegin;
-        this._timeEventEnd = _timeEventEnd;
     }
 
     // Методы
@@ -69,13 +48,29 @@ public class EventSchedule {
         return _placeEvent;
     }
 
+    /**
+     * Присвоение имени руководителя
+     * @param name имя
+     */
+    public void SetTeacherName(String name){
+        this._teacherName = name;
+    }
+
+    /**
+     * Получить имя руководителя мероприятия
+     * @return String
+     */
+    public String GetTeacherName(){
+        return this._teacherName;
+    }
+
     // Время начала событитя
     /**
      * Установка времени начала события
      * @param timeEventBegin type Date
      */
     public void SetTimeEventBegin(Date timeEventBegin) {
-        if (timeEventBegin.getTime() > 86399999l){
+        if (timeEventBegin.getTime() > 86399999L){
             throw new Error("Incorrect format of the number _timeEventBegin");
         }
         else {
@@ -105,7 +100,7 @@ public class EventSchedule {
      * @param t количество миллисекунд
      */
     public void SetTimeEventBegin(long t){
-        if( (t < 0l) || (t > 86399999l) ){
+        if( (t < 0L) || (t > 86399999L) ){
            throw new Error("Incorrect format of the number t");
         }
         else{
@@ -123,9 +118,49 @@ public class EventSchedule {
 
     // Время окончания события
     //TODO: Дописать методы, как у TimeEventBegin
-    public void SetTimeEventEnd(Date _timeEventEnd) {
-        this._timeEventEnd = _timeEventEnd;
+    public void SetTimeEventEnd(Date timeEventEnd) {
+        if (timeEventEnd.getTime() > 86399999L){
+            throw new Error("Incorrect format of the number timeEventEnd");
+        }
+        else {
+            this._timeEventBegin = timeEventEnd;
+        }
     }
+
+    /**
+     * Утановка времени окончания события
+     * @param h Часы
+     * @param m Минуты
+     */
+    public void SetTimeEventEnd(int h, int m) {
+        if ((h < 0) || (h > 23)){
+            throw new Error("Incorrect format of the number h");
+        }
+        else if ((m < 0) || (m > 59)){
+            throw new Error("Incorrect format of the number m");
+        }
+        else{
+            this._timeEventEnd.setTime(h * 3600000 + m * 60000);
+        }
+    }
+
+    /**
+     * Установка времени окончания события
+     * @param t количество миллисекунд
+     */
+    public void SetTimeEventEnd(long t){
+        if( (t < 0L) || (t > 86399999L) ){
+            throw new Error("Incorrect format of the number t");
+        }
+        else{
+            this._timeEventEnd.setTime(t);
+        }
+    }
+
+    /**
+     * Возврвщает время окончания события
+     * @return Экземпляр класса Date
+     */
     public Date GetTimeEventEnd() {
         return _timeEventEnd;
     }
