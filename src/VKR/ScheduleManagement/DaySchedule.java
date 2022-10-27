@@ -1,6 +1,8 @@
 package VKR.ScheduleManagement;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * Класс управления расписанием за 1 день
@@ -16,7 +18,6 @@ public class DaySchedule {
     public DaySchedule(){
         this._eventsDayList = new ArrayList<EventSchedule>();
     }
-    // TODO: добавить описание функции (первоначально создание копии существующего списка)
     public DaySchedule(ArrayList<EventSchedule> ListSchedule){
         this._eventsDayList = ListSchedule;
     }
@@ -52,7 +53,7 @@ public class DaySchedule {
 
     /**
      * Удалить событие по индексу
-     * @param index
+     * @param index индекс события
      */
     public void  RemoveEventsDayByIndex(int index){
         this._eventsDayList.remove(index);
@@ -66,9 +67,7 @@ public class DaySchedule {
     }
 
     public Boolean SortEventList(){
-
-
-
+        Collections.sort(_eventsDayList);
         return true;
     }
 

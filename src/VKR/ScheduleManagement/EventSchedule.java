@@ -1,12 +1,11 @@
 package VKR.ScheduleManagement;
 
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 /**
  * Класс для управления событием расписания
  */
-public class EventSchedule {
+public class EventSchedule implements Comparable<EventSchedule>{
 
     private String _nameEvent; // Имя события (низвание пары, урока и т.п.)
     private String _typeEvent; // Тип события (лекция, практика, собрание, концерт и т.д.)
@@ -21,6 +20,16 @@ public class EventSchedule {
     public EventSchedule(){
         this._timeEventBegin = new Date();
         this._timeEventEnd = new Date();
+    }
+
+    /**
+     * Метод интерфейса Comparable для сортировки списка
+     * @param o обьект EventSchedule
+     * @return > 0, < 0, = 0
+     */
+    @Override
+    public int compareTo(EventSchedule o){
+        return (int)(this.GetTimeEventBeginLong() - o.GetTimeEventBeginLong());
     }
 
     // Методы
@@ -116,8 +125,11 @@ public class EventSchedule {
         return _timeEventBegin;
     }
 
+    public long GetTimeEventBeginLong(){
+        return _timeEventBegin.getTime();
+    }
+
     // Время окончания события
-    //TODO: Дописать методы, как у TimeEventBegin
     public void SetTimeEventEnd(Date timeEventEnd) {
         if (timeEventEnd.getTime() > 86399999L){
             throw new Error("Incorrect format of the number timeEventEnd");

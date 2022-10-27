@@ -6,6 +6,9 @@ public class Main {
     public static void main(String[] args) {
         EventSchedule Event = new EventSchedule();
 
+        DaySchedule day = new DaySchedule();
+        //TODO: протестить DaySchedule
+
         try {
             Event.SetNameEvent("Физика");
             Event.SetPlaceEvent("203");
